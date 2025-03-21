@@ -14,14 +14,11 @@ public class Main {
                 .get("/", ctx -> ctx.result("Bem-vindo à API Javalin!"))
                 .start(7070);
 
-        // Simulando um banco de dados em memória
         Map<Integer, String> users = new HashMap<>();
         AtomicInteger userIdCounter = new AtomicInteger(1);
 
-        // Listar usuários
         app.get("/users", ctx -> ctx.json(users));
 
-        // Criar usuário
         app.post("/users", ctx -> {
             String name = ctx.body();
             int id = userIdCounter.getAndIncrement();
@@ -30,7 +27,6 @@ public class Main {
 
         });
 
-        // Buscar usuário por ID
         app.get("/users/{id}", ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             String user = users.get(id);
@@ -41,7 +37,6 @@ public class Main {
             ctx.json(Map.of("Id", id, "Nome", user));
         });
 
-        // Deletar usuário
         app.delete("/users/{id}", ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             if (users.remove(id) == null) {
@@ -50,7 +45,6 @@ public class Main {
             ctx.result("Usuário removido com sucesso");
         });
 
-        // Endpoint para mostrar a hora atual
         app.get("/time", ctx -> {
             ctx.json(Map.of("response", "Hora do servidor: " + LocalTime.now()));
         });
