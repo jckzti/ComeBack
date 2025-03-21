@@ -9,6 +9,22 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
+
+    private String retornaTexto() {
+        return "texto";
+    }
+
+    private static Map<String, Object> createJsonResponse(String key, Object value) {
+        return Map.of(key, value);
+    }
+
+    private static Map<String, Object> createJsonResponse(Object value) {
+        return createJsonResponse("response", value);
+    }
+    
+    // Faça um método que retorn um json
+    
+
     public static void main(String[] args) {
         var app = Javalin.create()
                 .get("/", ctx -> ctx.result("Bem-vindo à API Javalin!"))
@@ -23,7 +39,7 @@ public class Main {
             String name = ctx.body();
             int id = userIdCounter.getAndIncrement();
             users.put(id, name);
-            ctx.json(Map.of("message", "Usuário criado", "id", id));
+            ctx.json(createJsonResponse("Usuário criado"));
 
         });
 
@@ -34,7 +50,7 @@ public class Main {
                 throw new NotFoundResponse("Usuário não encontrado");
             }
             ctx.result(user);
-            ctx.json(Map.of("Id", id, "Nome", user));
+            ctx.json(createJsonResponse("user", Map.of("id", id, "Nome", user)));
         });
 
         app.delete("/users/{id}", ctx -> {
@@ -46,7 +62,7 @@ public class Main {
         });
 
         app.get("/time", ctx -> {
-            ctx.json(Map.of("response", "Hora do servidor: " + LocalTime.now()));
+            ctx.json(createJsonResponse("response", "Hora do servidor: " + LocalTime.now()));
         });
     }
 }
