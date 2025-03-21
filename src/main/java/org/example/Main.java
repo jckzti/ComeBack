@@ -57,7 +57,7 @@ public class Main {
         });
 
         app.get("/time", ctx -> {
-            ctx.json(createJsonResponse("response", "Hora do servidor: " + LocalTime.now()));
+            ctx.json(createJsonResponse("Hora do servidor: " + LocalTime.now()));
         });
     }
 }
