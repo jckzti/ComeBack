@@ -2,6 +2,7 @@ import io.javalin.Javalin;
 import io.javalin.websocket.WsContext;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class WebSocketServer {
             });
         });
 
-        System.out.println("Servidor WebSocket rodando em ws://localhost:7070/chat");
+        System.out.println("Servidor WebSocket rodando em ws://localhost:7071/chat");
     }
 
     private static void broadcast(String message) {
