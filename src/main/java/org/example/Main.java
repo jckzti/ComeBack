@@ -18,12 +18,9 @@ public class Main {
         return Map.of(key, value);
     }
 
-    private static Map<String, Object> createJsonResponse(Object value) {
+    private static Map<String, Object> createJsonResponse(String value) {
         return createJsonResponse("response", value);
     }
-    
-    // Faça um método que retorn um json
-    
 
     public static void main(String[] args) {
         var app = Javalin.create()
@@ -47,16 +44,18 @@ public class Main {
             int id = Integer.parseInt(ctx.pathParam("id"));
             String user = users.get(id);
             if (user == null) {
-                throw new NotFoundResponse("Usuário não encontrado");
+                ctx.json(createJsonResponse("Usuário não encontrado"));
+                return;
+
             }
-            ctx.result(user);
             ctx.json(createJsonResponse("user", Map.of("id", id, "Nome", user)));
         });
 
         app.delete("/users/{id}", ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             if (users.remove(id) == null) {
-                throw new NotFoundResponse("Usuário não encontrado");
+                ctx.json(createJsonResponse("Usuário não encontrado"));
+                return;
             }
             ctx.result("Usuário removido com sucesso");
         });
