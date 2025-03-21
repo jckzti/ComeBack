@@ -1,0 +1,17 @@
+### Criar um usuário
+POST http://localhost:7070/users
+Content-Type: text/plain
+
+João Silva Junior
+
+### Listar usuários
+GET http://localhost:7070/users
+
+### Buscar usuário pelo ID
+GET http://localhost:7070/users/1
+
+### Deletar um usuário
+DELETE http://localhost:7070/users/1
+
+### Ver a hora do servidor
+GET http://localhost:7070/time
