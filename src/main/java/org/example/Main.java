@@ -26,7 +26,8 @@ public class Main {
             String name = ctx.body();
             int id = userIdCounter.getAndIncrement();
             users.put(id, name);
-            ctx.result("Usuário criado com ID: " + id);
+            ctx.json(Map.of("message", "Usuário criado", "id", id));
+
         });
 
         // Buscar usuário por ID
@@ -37,6 +38,7 @@ public class Main {
                 throw new NotFoundResponse("Usuário não encontrado");
             }
             ctx.result(user);
+            ctx.json(Map.of("Id", id, "Nome", user));
         });
 
         // Deletar usuário
@@ -49,6 +51,8 @@ public class Main {
         });
 
         // Endpoint para mostrar a hora atual
-        app.get("/time", ctx -> ctx.result("Hora do servidor: " + LocalTime.now()));
+        app.get("/time", ctx -> {
+            ctx.json(Map.of("response", "Hora do servidor: " + LocalTime.now()));
+        });
     }
 }
