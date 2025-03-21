@@ -10,10 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-    private String retornaTexto() {
-        return "texto";
-    }
-
     private static Map<String, Object> createJsonResponse(String key, Object value) {
         return Map.of(key, value);
     }
