@@ -9,6 +9,15 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
+
+    private static Map<String, Object> createJsonResponse(String key, Object value) {
+        return Map.of(key, value);
+    }
+
+    private static Map<String, Object> createJsonResponse(String value) {
+        return createJsonResponse("response", value);
+    }
+
     public static void main(String[] args) {
         var app = Javalin.create()
                 .get("/", ctx -> ctx.result("Bem-vindo à API Javalin!"))
@@ -23,7 +32,7 @@ public class Main {
             String name = ctx.body();
             int id = userIdCounter.getAndIncrement();
             users.put(id, name);
-            ctx.json(Map.of("message", "Usuário criado", "id", id));
+            ctx.json(createJsonResponse("Usuário criado"));
 
         });
 
@@ -31,22 +40,24 @@ public class Main {
             int id = Integer.parseInt(ctx.pathParam("id"));
             String user = users.get(id);
             if (user == null) {
-                throw new NotFoundResponse("Usuário não encontrado");
+                ctx.json(createJsonResponse("Usuário não encontrado"));
+                return;
+
             }
-            ctx.result(user);
-            ctx.json(Map.of("Id", id, "Nome", user));
+            ctx.json(createJsonResponse("user", Map.of("id", id, "Nome", user)));
         });
 
         app.delete("/users/{id}", ctx -> {
             int id = Integer.parseInt(ctx.pathParam("id"));
             if (users.remove(id) == null) {
-                throw new NotFoundResponse("Usuário não encontrado");
+                ctx.json(createJsonResponse("Usuário não encontrado"));
+                return;
             }
             ctx.result("Usuário removido com sucesso");
         });
 
         app.get("/time", ctx -> {
-            ctx.json(Map.of("response", "Hora do servidor: " + LocalTime.now()));
+            ctx.json(createJsonResponse("Hora do servidor: " + LocalTime.now()));
         });
     }
 }
