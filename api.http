@@ -2,7 +2,7 @@
 POST http://localhost:7070/users
 Content-Type: text/plain
 
-João Silva Junior
+João Silva
 
 ### Listar usuários
 GET http://localhost:7070/users
