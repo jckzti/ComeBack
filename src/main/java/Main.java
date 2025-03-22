@@ -1,7 +1,4 @@
-package org.example;
-
 import io.javalin.Javalin;
-import io.javalin.http.NotFoundResponse;
 
 import java.time.LocalTime;
 import java.util.HashMap;
