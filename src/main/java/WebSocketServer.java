@@ -76,7 +76,7 @@ public class WebSocketServer {
     private static void processCalculation(WsContext ctx, String username, String message) {
         String[] parts = message.split(" ");
         if (parts.length != 3) {
-            ctx.send("Formato inválido. Use: numero1 operador numero2 (ex: 5 + 3)");
+            ctx.send("Formato inválido. Use: número 1 operador numero 2 (ex: 5 + 3)");
             return;
         }
 
